@@ -47,11 +47,55 @@ def ConstructOsakametroAdjancyList():
 	AddSingleLine(network, 'N', 11, 27)
 	AddSingleLine(network, 'K', 11, 20)
 	AddSingleLine(network, 'I', 11, 21)
-	print(network)
+	#print(network)
+	return network
 
 def ConstructOsakametroAdjancyMatrix():
 	adjancyList = ConstructOsakametroAdjancyList()
+	# Technically this is a dictionary
 	# Convert List to Matrix
+	nodeSize = len(adjancyList)
+	adjancyMatrix = [[-1]*nodeSize for i in range(nodeSize)]
+	#initialize
+	for i in range(nodeSize):
+		adjancyMatrix[i][i] = 0
+	nodeList = ConstructNodeList() # to get index from station name
+	#add adjancy
+	for fromNode in adjancyList:
+		fromIndex = nodeList.index(fromNode)
+		for toNode in adjancyList[fromNode]:
+			toIndex = nodeList.index(toNode)
+			adjancyMatrix[fromIndex][toIndex] = 1
+	#add crossing station
+	for crossingList in crossStationList:
+		for i in range(len(crossingList)):
+			fromIndex = nodeList.index(fromNode)
+			for j in range(i+1,len(crossingList)):
+				toIndex = nodeList.index(toNode)
+				adjancyMatrix[fromIndex][toIndex] = 0
+				adjancyMatrix[toIndex][fromIndex] = 0
+	print(adjancyMatrix)
+	return adjancyMatrix
+
+def ConstructNodeList():
+	# constructs 1 dimensional list of all nodes
+	ret = []
+	AddNode(ret, 'M', 11, 30)
+	AddNode(ret, 'P', 9, 18)
+	AddNode(ret, 'T', 11, 36)
+	AddNode(ret, 'Y', 11, 21)
+	AddNode(ret, 'C', 10, 23)
+	AddNode(ret, 'S', 11, 24)
+	AddNode(ret, 'N', 11, 27)
+	AddNode(ret, 'K', 11, 20)
+	AddNode(ret, 'I', 11, 21)
+	return ret
+
+def AddNode(list, stationSymbol, startNum, finishNum):
+	# add nodes in a single line
+	for i in range(startNum, finishNum+1):
+		list.append(getStationName(stationSymbol, i))
+
 
 def WarshallFloyd(adjancyMatrix):
 	# calc minimum path length O(n^3)
