@@ -23,20 +23,25 @@ crossStationList = [
 	['C10','P09']
 ]
 
-def AddSingleLine(network, stationSymbol, startNum, finishNum):
-	pass
+def getStationName(symbol, id):
+	return symbol + str(id)
 
+def AddSingleLine(network, stationSymbol, startNum, finishNum):
+	for i in range(startNum, finishNum + 1):
+		pass
+	
 def ConstructOsakametroAdjancyList():
 	network = {}
 	AddSingleLine(network, 'M', 11, 30)
 	AddSingleLine(network, 'P', 9, 18)
-	AddSingleLine(network, 'T', 11, 36)
-	AddSingleLine(network, 'Y', 11, 21)
-	AddSingleLine(network, 'C', 10, 23)
-	AddSingleLine(network, 'S', 11, 24)
-	AddSingleLine(network, 'N', 11, 27)
-	AddSingleLine(network, 'K', 11, 20)
-	AddSingleLine(network, 'I', 11, 21)
+	# AddSingleLine(network, 'T', 11, 36)
+	# AddSingleLine(network, 'Y', 11, 21)
+	# AddSingleLine(network, 'C', 10, 23)
+	# AddSingleLine(network, 'S', 11, 24)
+	# AddSingleLine(network, 'N', 11, 27)
+	# AddSingleLine(network, 'K', 11, 20)
+	# AddSingleLine(network, 'I', 11, 21)
+	print(network)
 
 def ConstructOsakametroAdjancyMatrix():
 	adjancyList = ConstructOsakametroAdjancyList()
