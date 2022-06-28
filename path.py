@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 crossStationList = [
  ['T13','I14'],
  ['T18','K11'],
@@ -28,20 +30,23 @@ def getStationName(symbol, id):
 	return symbol + str(id)
 
 def AddSingleLine(network, stationSymbol, startNum, finishNum):
-	for i in range(startNum, finishNum + 1):
-		pass
+	for i in range(startNum, finishNum):
+		fromStation = getStationName(stationSymbol, i)
+		toStation = getStationName(stationSymbol, i + 1)
+		network[fromStation].append(toStation)
+		network[toStation].append(fromStation)
 	
 def ConstructOsakametroAdjancyList():
-	network = {}
+	network = defaultdict(lambda: [])
 	AddSingleLine(network, 'M', 11, 30)
 	AddSingleLine(network, 'P', 9, 18)
-	# AddSingleLine(network, 'T', 11, 36)
-	# AddSingleLine(network, 'Y', 11, 21)
-	# AddSingleLine(network, 'C', 10, 23)
-	# AddSingleLine(network, 'S', 11, 24)
-	# AddSingleLine(network, 'N', 11, 27)
-	# AddSingleLine(network, 'K', 11, 20)
-	# AddSingleLine(network, 'I', 11, 21)
+	AddSingleLine(network, 'T', 11, 36)
+	AddSingleLine(network, 'Y', 11, 21)
+	AddSingleLine(network, 'C', 10, 23)
+	AddSingleLine(network, 'S', 11, 24)
+	AddSingleLine(network, 'N', 11, 27)
+	AddSingleLine(network, 'K', 11, 20)
+	AddSingleLine(network, 'I', 11, 21)
 	print(network)
 
 def ConstructOsakametroAdjancyMatrix():
